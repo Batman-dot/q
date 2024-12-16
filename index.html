@@ -1,0 +1,1699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display C Program</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        .heading {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .code-box {
+            width: 80%;
+            background-color: #f4f4f4;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            padding: 15px;
+            font-family: "Courier New", Courier, monospace;
+            color: #333;
+            white-space: pre-wrap;
+            overflow-x: auto;
+            position: relative;
+        }
+        .copy-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 5px 10px;
+            font-size: 14px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .copy-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="heading">FCFS</div>
+        <div class="code-box">
+            <button class="copy-button" onclick="copyCode()">Copy Code</button>
+            <pre>
+            #include  < stdio.h >
+
+                void main() 
+                {
+                    int bt[50], wt[50], at[50], wat[50], ft[50], tat[50];
+                    int i, n;
+                    float awt, att, sum = 0, sum1 = 0;
+                    char p[10][5];
+                
+                
+                
+                    // Get the number of processes
+                    printf("\nEnter the number of processes: ");
+                    scanf("%d", &n);
+                
+                    // Get process names and burst times
+                    printf("\nEnter the process name and burst-time:\n");
+                    for (i = 0; i < n; i++) {
+                        printf("Process %d name: ", i + 1);
+                        scanf("%s", p[i]);
+                        printf("Process %d burst time: ", i + 1);
+                        scanf("%d", &bt[i]);
+                    }
+                
+                    // Get arrival times
+                    printf("\nEnter the arrival-time for each process:\n");
+                    for (i = 0; i < n; i++) {
+                        printf("Process %d arrival time: ", i + 1);
+                        scanf("%d", &at[i]);
+                    }
+                
+                    // Waiting time calculation
+                    wt[0] = 0;
+                    for (i = 1; i < n; i++) 
+                        wt[i] = wt[i - 1] + bt[i - 1];
+                
+                    // Finish time calculation
+                    ft[0] = bt[0];
+                    for (i = 1; i < n; i++) 
+                        ft[i] = ft[i - 1] + bt[i];
+                
+                    // Gantt Chart
+                    printf("\n\n\t\t\tGANTT CHART\n\n");
+                    for (i = 0; i < n; i++) 
+                        printf("|\t%s\t", p[i]);
+                    printf("|\n\n");
+                
+                    for (i = 0; i < n; i++) 
+                        printf("%d\t\t", wt[i]);
+                    printf("%d\n\n", wt[n - 1] + bt[n - 1]);
+                
+                    // Waiting time and turnaround time calculations
+                    for (i = 0; i < n; i++) 
+                        wat[i] = wt[i] - at[i];
+                    for (i = 0; i < n; i++) 
+                        tat[i] = wat[i] + bt[i];
+                
+                    // Display results
+                    printf("\n FIRST COME FIRST SERVE\n");
+                    printf("\n Process\tBurst-time\tArrival-time\tWaiting-time\tFinish-time\tTurnaround-time\n");
+                    for (i = 0; i < n; i++) 
+                        printf("\n %d %s\t\t%d\t\t%d\t\t%d\t\t%d\t\t%d", i + 1, p[i], bt[i], at[i], wat[i], ft[i], tat[i]);
+                
+                    // Calculate average waiting time and turnaround time
+                    for (i = 0; i < n; i++) 
+                        sum += wat[i];
+                    awt = sum / n;
+                
+                    for (i = 0; i < n; i++) 
+                        sum1 += tat[i];
+                    att = sum1 / n;
+                
+                    printf("\n\nAverage waiting time: %.2f", awt);
+                    printf("\nAverage turnaround time: %.2f\n", att);
+                }
+                
+                    // Sample Input for Testing
+                    // Test Case 1:
+                    // Number of processes: 3
+                    // Process names: P1, P2, P3
+                    // Burst times: 5, 8, 12
+                    // Arrival times: 0, 1, 2
+                    // Test Case 2:
+                    // Number of processes: 4
+                    // Process names: P1, P2, P3, P4
+                    // Burst times: 6, 4, 9, 5
+                    // Arrival times: 0, 1, 2, 3
+            </pre>
+        </div>
+        <div class="heading">SJF</div>
+        <div class="code-box">
+            <button class="copy-button" onclick="copyCode()">Copy Code</button>
+            <pre>
+            #include  < stdio.h >
+
+                void main() 
+                { 
+                    int i, j, n, bt[30], at[30], st[30], ft[30], wat[30], wt[30], temp, temp1, tot, tt[30]; 
+                    float awt, att; 
+                    int p[15];
+                
+                
+                    wat[1] = 0;
+                    printf("ENTER THE NO.OF PROCESS: ");
+                    scanf("%d", &n);
+                    printf("\nENTER THE PROCESS NUMBER, BURST TIME AND ARRIVAL TIME\n");
+                    for (i = 1; i <= n; i++) 
+                    { 
+                        printf("Process %d: ", i);
+                        scanf("%d %d %d", &p[i], &bt[i], &at[i]); 
+                    } 
+                
+                    printf("\nPROCESS\tBURST TIME\tARRIVAL TIME"); 
+                    for (i = 1; i <= n; i++) 
+                    { 
+                        printf("\np%d\t%d\t\t%d", p[i], bt[i], at[i]); 
+                    } 
+                
+                    for (i = 1; i <= n; i++) 
+                    { 
+                        for (j = i + 1; j <= n; j++) 
+                        { 
+                            if (bt[i] > bt[j]) 
+                            { 
+                                temp = bt[i]; 
+                                bt[i] = bt[j]; 
+                                bt[j] = temp; 
+                
+                                temp1 = p[i];
+                                p[i] = p[j]; 
+                                p[j] = temp1; 
+                            } 
+                        } 
+                        if (i == 1) 
+                        { 
+                            st[1] = 0; 
+                            ft[1] = bt[1]; 
+                            wt[1] = 0; 
+                        } 
+                        else 
+                        { 
+                            st[i] = ft[i - 1]; 
+                            ft[i] = st[i] + bt[i]; 
+                            wt[i] = st[i]; 
+                        } 
+                    } 
+                
+                    printf("\n\n\t\t\tGANTT CHART\n"); 
+                    for (i = 1; i <= n; i++) 
+                        printf("|\tp%d\t", p[i]); 
+                    printf("|\n\n"); 
+                
+                    for (i = 1; i <= n; i++) 
+                        printf("%d \t\t", wt[i]); 
+                    printf("%d\n\n", wt[n] + bt[n]); 
+                
+                    for (i = 2; i <= n; i++) 
+                        wat[i] = wt[i] - at[i]; 
+                
+                    for (i = 1; i <= n; i++) 
+                        tt[i] = wat[i] + bt[i] - at[i]; 
+                
+                    printf("\nPROCESS\tBURST TIME\tARRIVAL TIME\tWAITING TIME\tTURNAROUND TIME\n"); 
+                    for (i = 1; i <= n; i++) 
+                    { 
+                        printf("\np%d %5d %15d %15d %15d", p[i], bt[i], at[i], wat[i], tt[i]); 
+                    } 
+                
+                    for (i = 1, tot = 0; i <= n; i++) 
+                        tot += wt[i]; 
+                    awt = (float)tot / n; 
+                    printf("\n\n\n AVERAGE WAITING TIME = %.2f", awt); 
+                
+                    for (i = 1, tot = 0; i <= n; i++) 
+                        tot += tt[i]; 
+                    att = (float)tot / n; 
+                    printf("\n\n AVERAGE TURNAROUND TIME = %.2f\n", att);
+                }
+                
+                    // Sample Input for Testing
+                    // Test Case 1:
+                    // Number of processes: 3
+                    // Process numbers: 1, 2, 3
+                    // Burst times: 5, 8, 3
+                    // Arrival times: 0, 1, 2
+                
+                    // Test Case 2:
+                    // Number of processes: 4
+                    // Process numbers: 1, 2, 3, 4
+                    // Burst times: 6, 4, 7, 5
+                    // Arrival times: 0, 1, 2, 3
+            </pre>
+        </div>
+        <div class="heading">Round Robin</div>
+        <div class="code-box">
+            <button class="copy-button" onclick="copyCode()">Copy Code</button>
+            <pre>
+            #include < stdio.h > 
+                void main() 
+                { 
+                    int ct = 0, y[30], j = 0, bt[10], cwt = 0; 
+                    int tq, i, max = 0, n, wt[10], t[10], at[10], tt[10], b[10];
+                    float a = 0.0, s = 0.0; 
+                    char p[10][10]; 
+                
+                    printf("\nEnter the number of processes: "); 
+                    scanf("%d", &n); 
+                
+                    printf("\nEnter the time quantum: "); 
+                    scanf("%d", &tq); 
+                
+                    printf("\nEnter the process name, burst time, and arrival time:\n"); 
+                    for (i = 0; i < n; i++) 
+                    { 
+                        printf("Process %d name: ", i + 1); 
+                        scanf("%s", p[i]); 
+                        printf("Process %d burst time: ", i + 1); 
+                        scanf("%d", &bt[i]); 
+                        printf("Process %d arrival time: ", i + 1); 
+                        scanf("%d", &at[i]); 
+                        wt[i] = t[i] = 0; 
+                        b[i] = bt[i]; 
+                    } 
+                
+                    printf("\n\t\tGANTT CHART\n\n"); 
+                
+                    for (i = 0; i < n; i++) 
+                    { 
+                        if (max < bt[i]) 
+                            max = bt[i]; 
+                    } 
+                
+                    while (max != 0) 
+                    { 
+                        for (i = 0; i < n; i++) 
+                        { 
+                            if (bt[i] > 0) 
+                            { 
+                                if (ct == 0) 
+                                    wt[i] = wt[i] + cwt; 
+                                else 
+                                    wt[i] = wt[i] + (cwt - t[i]); 
+                            } 
+                
+                            if (bt[i] == 0) 
+                                cwt = cwt + 0; 
+                            else if (bt[i] == max) 
+                            { 
+                                if (bt[i] > tq) 
+                                { 
+                                    cwt = cwt + tq; 
+                                    bt[i] = bt[i] - tq; 
+                                    max = max - tq; 
+                                } 
+                                else 
+                                { 
+                                    cwt = cwt + bt[i]; 
+                                    bt[i] = 0; 
+                                    max = 0; 
+                                } 
+                                printf("|\t%s", p[i]); 
+                                y[j] = cwt; 
+                                j++; 
+                            } 
+                            else if (bt[i] < tq) 
+                            { 
+                                cwt = cwt + bt[i]; 
+                                bt[i] = 0; 
+                                printf("|\t%s", p[i]); 
+                                y[j] = cwt; 
+                                j++; 
+                            } 
+                            else if (bt[i] > tq) 
+                            { 
+                                cwt = cwt + tq; 
+                                bt[i] = bt[i] - tq; 
+                                printf("|\t%s", p[i]); 
+                                y[j] = cwt; 
+                                j++; 
+                            } 
+                            else if (bt[i] == tq) 
+                            { 
+                                cwt = cwt + bt[i]; 
+                                printf("|\t%s", p[i]); 
+                                bt[i] = 0; 
+                                y[j] = cwt; 
+                                j++; 
+                            } 
+                            t[i] = cwt; 
+                        } 
+                        ct = ct + 1; 
+                    } 
+                
+                    for (i = 0; i < n; i++) 
+                    { 
+                        wt[i] = wt[i] - at[i]; 
+                        a = a + wt[i]; 
+                        tt[i] = wt[i] + b[i] - at[i]; 
+                        s = s + tt[i]; 
+                    } 
+                
+                    a = a / n; 
+                    s = s / n; 
+                
+                    printf("\n"); 
+                    printf("\n0"); 
+                    for (i = 0; i < j; i++) 
+                        printf("\t%d", y[i]); 
+                    printf("\n"); 
+                
+                    printf("\n\t\tROUND ROBIN\n"); 
+                    printf("\nProcess\tBurst-time\tArrival-time\tWaiting-time\tTurnaround-time\n"); 
+                    for (i = 0; i < n; i++) 
+                        printf("\n\n%d %s\t\t%d\t\t%d\t\t%d\t\t%d", i + 1, p[i], b[i], at[i], wt[i], tt[i]); 
+                
+                    printf("\n\nAverage waiting time = %.2f", a); 
+                    printf("\n\nAverage turnaround time = %.2f\n", s); 
+                }
+                
+                /*
+                Sample Input 1:
+                Enter the number of processes: 3
+                Enter the time quantum: 4
+                Enter the process name, burst time, and arrival time:
+                Process 1 name: P1
+                Process 1 burst time: 10
+                Process 1 arrival time: 0
+                Process 2 name: P2
+                Process 2 burst time: 5
+                Process 2 arrival time: 1
+                Process 3 name: P3
+                Process 3 burst time: 8
+                Process 3 arrival time: 2
+                
+                */          
+            </pre>      
+        </div>
+        <div class="heading">Priority Scheduling</div>
+        <div class="code-box">
+            <button class="copy-button" onclick="copyCode()">Copy Code</button>
+            <pre>
+            #include < stdio.h >
+                #include<string.h>
+                
+                void main()
+                {
+                    int bt[30], pr[30], np;
+                    int wt[30], tat[30], wat[30], at[30], ft[30];
+                    int i, j, temp;
+                    float sum_wat = 0, sum_tat = 0, awt, att;
+                    char p[30][9], temp_str[9];
+                
+                    // Input the number of processes
+                    printf("\nEnter the number of processes: ");
+                    scanf("%d", &np);
+                
+                    // Input process details
+                    printf("\nEnter the process name, burst time, and priority:\n");
+                    for (i = 0; i < np; i++) {
+                        scanf("%s %d %d", p[i], &bt[i], &pr[i]);
+                    }
+                
+                    // Input arrival times
+                    printf("\nEnter the arrival times:\n");
+                    for (i = 0; i < np; i++) {
+                        scanf("%d", &at[i]);
+                    }
+                
+                    // Sorting processes by priority
+                    for (i = 0; i < np; i++) {
+                        for (j = i + 1; j < np; j++) {
+                            if (pr[i] > pr[j]) {
+                                // Swap priority
+                                temp = pr[j];
+                                pr[j] = pr[i];
+                                pr[i] = temp;
+                
+                                // Swap burst time
+                                temp = bt[j];
+                                bt[j] = bt[i];
+                                bt[i] = temp;
+                
+                                // Swap arrival time
+                                temp = at[j];
+                                at[j] = at[i];
+                                at[i] = temp;
+                
+                                // Swap process name
+                                strcpy(temp_str, p[j]);
+                                strcpy(p[j], p[i]);
+                                strcpy(p[i], temp_str);
+                            }
+                        }
+                    }
+                
+                    // Calculate waiting times and finish times
+                    wt[0] = 0;
+                    for (i = 1; i < np; i++) {
+                        wt[i] = wt[i - 1] + bt[i - 1];
+                    }
+                
+                    ft[0] = bt[0];
+                    for (i = 1; i < np; i++) {
+                        ft[i] = ft[i - 1] + bt[i];
+                    }
+                
+                    // Calculate waiting time considering arrival times
+                    for (i = 0; i < np; i++) {
+                        wat[i] = wt[i] - at[i];
+                        sum_wat += wat[i];
+                    }
+                
+                    // Calculate turnaround times
+                    for (i = 0; i < np; i++) {
+                        tat[i] = wat[i] + bt[i];
+                        sum_tat += tat[i];
+                    }
+                
+                    // Calculate averages
+                    awt = sum_wat / np;
+                    att = sum_tat / np;
+                
+                    // Print Gantt Chart
+                    printf("\n\n\t\tGANTT CHART\n\n");
+                    for (i = 0; i < np; i++) {
+                        printf("|\t%s\t", p[i]);
+                    }
+                    printf("|\n\n");
+                    printf("0");
+                    for (i = 0; i < np; i++) {
+                        printf("\t%d", ft[i]);
+                    }
+                    printf("\n\n");
+                
+                    // Display results
+                    printf("\nPRIORITY SCHEDULING:\n");
+                    printf("\nProcess\tPriority\tBurst-time\tArrival-time\tWaiting-time\tTurnaround-time\n");
+                    for (i = 0; i < np; i++) {
+                        printf("%s\t\t%d\t\t%d\t\t%d\t\t%d\t\t%d\n", p[i], pr[i], bt[i], at[i], wat[i], tat[i]);
+                    }
+                
+                    printf("\n\nAverage Waiting Time: %.2f", awt);
+                    printf("\nAverage Turnaround Time: %.2f\n", att);
+                }
+                
+                /*
+                Sample Input:
+                
+                Enter the number of processes: 3
+                Enter the process name, burst time, and priority:
+                P1 6 2
+                P2 8 1
+                P3 7 3
+                Enter the arrival times:
+                0 1 2
+                
+                Expected Output:
+                GANTT CHART:
+                |\tP2\t|\tP1\t|\tP3\t|
+                
+                Priority Scheduling:
+                Process Priority Burst-time Arrival-time Waiting-time Turnaround-time
+                P2      1       8           1           0           8
+                P1      2       6           0           8           14
+                P3      3       7           2           14          21
+                
+                Average Waiting Time: 7.33
+                Average Turnaround Time: 14.33
+                */
+            </pre>
+        </div>
+        <div class="heading">Producer Consumer</div>
+        <div class="code-box">
+            <button class="copy-button" onclick="copyCode()">Copy Code</button>
+            <pre>
+            #include  < stdio.h >
+                #include <stdlib.h>
+                
+                #define BUFFERSIZE 10
+                
+                int mutex = 1, empty, full = 0, n, item, item1;
+                int buffer[20];
+                int in = 0, out = 0;
+                
+                void wait(int *s) {
+                    while (*s <= 0) {
+                        printf("\nCannot proceed as the resource is not available.\n");
+                        exit(0);
+                    }
+                    (*s)--;
+                }
+                
+                void signal(int *s) {
+                    (*s)++;
+                }
+                
+                void producer() {
+                    do {
+                        wait(&empty);
+                        wait(&mutex);
+                        printf("\nEnter an item: ");
+                        scanf("%d", &item);
+                        buffer[in] = item;
+                        printf("Produced item: %d at buffer[%d]\n", item, in);
+                        in = (in + 1) % BUFFERSIZE; // Circular buffer implementation
+                        signal(&mutex);
+                        signal(&full);
+                    } while (in < n);
+                }
+                
+                void consumer() {
+                    do {
+                        wait(&full);
+                        wait(&mutex);
+                        item1 = buffer[out];
+                        printf("\nConsumed item = %d from buffer[%d]\n", item1, out);
+                        out = (out + 1) % BUFFERSIZE; // Circular buffer implementation
+                        signal(&mutex);
+                        signal(&empty);
+                    } while (out < n);
+                }
+                
+                void main() {
+                    printf("Enter the number of items (n): ");
+                    scanf("%d", &n);
+                    empty = n;
+                
+                    printf("\nStarting producer-consumer simulation...\n");
+                    producer();
+                    while (out != in)
+                        consumer();
+                }
+                
+                /* 
+                Sample Input:
+                Enter the number of items (n): 5
+                Enter an item: 10
+                Enter an item: 20
+                Enter an item: 30
+                Enter an item: 40
+                Enter an item: 50
+                
+                Sample Output:
+                Produced item: 10 at buffer[0]
+                Produced item: 20 at buffer[1]
+                Produced item: 30 at buffer[2]
+                Produced item: 40 at buffer[3]
+                Produced item: 50 at buffer[4]
+                
+                Consumed item = 10 from buffer[0]
+                Consumed item = 20 from buffer[1]
+                Consumed item = 30 from buffer[2]
+                Consumed item = 40 from buffer[3]
+                Consumed item = 50 from buffer[4]
+                */
+            </pre>
+        </div>
+        <div class="heading">Dinning Philosopher</div>
+        <div class="code-box">
+            <button class="copy-button" onclick="copyCode()">Copy Code</button>
+            <pre>
+                #include  < stdio.h >
+                #include <stdlib.h>
+                #include <math.h>
+                
+                int tph, philname[20], status[20], howhung, hu[20], cho;
+                
+                void one(); // Function prototype for "one"
+                void two(); // Function prototype for "two"
+                
+                int main() {
+                    int i;
+                    printf("\n\nDINING PHILOSOPHER PROBLEM");
+                    printf("\nEnter the total number of philosophers: ");
+                    scanf("%d", &tph);
+                
+                    for (i = 0; i < tph; i++) {
+                        philname[i] = i + 1; // Assign philosopher names as numbers
+                        status[i] = 1;       // 1 indicates thinking
+                    }
+                
+                    printf("How many are hungry: ");
+                    scanf("%d", &howhung);
+                
+                    if (howhung == tph) {
+                        printf("\nAll are hungry..\nDeadlock stage will occur");
+                        printf("\nExiting..\n");
+                        return 0; // Exit the program to avoid deadlock
+                    } else {
+                        for (i = 0; i < howhung; i++) {
+                            printf("Enter philosopher %d position (0 to %d): ", (i + 1), tph - 1);
+                            scanf("%d", &hu[i]);
+                            if (hu[i] >= tph || hu[i] < 0) {
+                                printf("Invalid position! Exiting..\n");
+                                return 0; // Exit for invalid input
+                            }
+                            status[hu[i]] = 2; // 2 indicates hungry
+                        }
+                
+                        do {
+                            printf("\n1. One can eat at a time");
+                            printf("\n2. Two can eat at a time");
+                            printf("\n3. Exit");
+                            printf("\nEnter your choice: ");
+                            scanf("%d", &cho);
+                
+                            switch (cho) {
+                                case 1:
+                                    one();
+                                    break;
+                                case 2:
+                                    two();
+                                    break;
+                                case 3:
+                                    exit(0);
+                                default:
+                                    printf("\nInvalid option..\n");
+                            }
+                        } while (1);
+                    }
+                }
+                
+                void one() {
+                    int pos = 0, x, i;
+                    printf("\nAllow one philosopher to eat at any time\n");
+                    for (i = 0; i < howhung; i++, pos++) {
+                        printf("\nP %d is granted to eat", philname[hu[pos]]);
+                        for (x = pos + 1; x < howhung; x++) {
+                            printf("\nP %d is waiting", philname[hu[x]]);
+                        }
+                    }
+                }
+                
+                void two() {
+                    int i, j, s = 0, t, r, x;
+                    printf("\nAllow two philosophers to eat at the same time\n");
+                    for (i = 0; i < howhung; i++) {
+                        for (j = i + 1; j < howhung; j++) {
+                            // Check if philosophers are not neighbors and not in a circular deadlock condition
+                            if (abs(hu[i] - hu[j]) >= 1 && abs(hu[i] - hu[j]) != (tph - 1)) {
+                                printf("\n\nCombination %d\n", (s + 1));
+                                t = hu[i];
+                                r = hu[j];
+                                s++;
+                                printf("P %d and P %d are granted to eat", philname[t], philname[r]);
+                                for (x = 0; x < howhung; x++) {
+                                    if ((hu[x] != t) && (hu[x] != r)) {
+                                        printf("\nP %d is waiting", philname[hu[x]]);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                /*
+                Sample Input:
+                Enter the total number of philosophers: 5
+                How many are hungry: 3
+                Enter philosopher 1 position (0 to 4): 0
+                Enter philosopher 2 position (0 to 4): 2
+                Enter philosopher 3 position (0 to 4): 4
+                
+                Sample Output:
+                1. One can eat at a time
+                2. Two can eat at a time
+                3. Exit
+                Enter your choice: 1
+                
+                Allow one philosopher to eat at any time
+                
+                P 1 is granted to eat
+                P 3 is waiting
+                P 5 is waiting
+                
+                P 3 is granted to eat
+                P 5 is waiting
+                
+                P 5 is granted to eat
+                
+                Enter your choice: 2
+                
+                Allow two philosophers to eat at the same time
+                
+                Combination 1
+                P 1 and P 3 are granted to eat
+                P 5 is waiting
+                
+                Combination 2
+                P 1 and P 5 are granted to eat
+                P 3 is waiting
+                
+                Combination 3
+                P 3 and P 5 are granted to eat
+                P 1 is waiting
+                */
+            </pre>
+        </div>
+        <div class="heading">Memory allocation techniques</div>
+        <div class="code-box">
+            <button class="copy-button" onclick="copyCode()">Copy Code</button>
+            <pre>
+            #include < stdio.h > 
+
+                main() {
+                    int p[10], np, b[10], nb, ch, c[10], d[10], alloc[10], flag[10], i, j;
+                    
+                    // Input number of processes and blocks
+                    printf("\nEnter the number of processes: ");
+                    scanf("%d", &np);
+                    printf("\nEnter the number of blocks: "); 
+                    scanf("%d", &nb);
+                    
+                    // Input process sizes
+                    printf("\nEnter the size of each process:"); 
+                    for(i = 0; i < np; i++) {
+                        printf("\nProcess %d:", i); 
+                        scanf("%d", &p[i]);
+                    }
+                
+                    // Input block sizes
+                    printf("\nEnter the block sizes:"); 
+                    for(j = 0; j < nb; j++) {
+                        printf("\nBlock %d:", j); 
+                        scanf("%d", &b[j]);
+                        c[j] = b[j];  // To preserve original block sizes
+                        d[j] = b[j];  // To preserve original block sizes
+                    }
+                
+                    // If processes are less than or equal to the number of blocks
+                    if(np <= nb) {
+                        printf("\n1. First fit 2. Best fit 3. Worst fit");
+                        
+                        // Menu for the user to select allocation strategy
+                        do {
+                            printf("\nEnter your choice:"); 
+                            scanf("%d", &ch);
+                            
+                            switch(ch) {
+                                // First fit strategy
+                                case 1:
+                                    printf("\nFirst Fit\n"); 
+                                    for(i = 0; i < np; i++) {
+                                        for(j = 0; j < nb; j++) {
+                                            if(p[i] <= b[j]) {
+                                                alloc[j] = p[i];
+                                                printf("\n\nAlloc[%d]", alloc[j]);
+                                                printf("\n\nProcess %d of size %d is allocated in block:%d of size:%d", i, p[i], j, b[j]);
+                                                flag[i] = 0; b[j] = 0;  // Block allocated, set to 0
+                                                break;
+                                            } else {
+                                                flag[i] = 1;
+                                            }
+                                        }
+                                    }
+                                    for(i = 0; i < np; i++) {
+                                        if(flag[i] != 0)
+                                            printf("\n\nProcess %d of size %d is not allocated", i, p[i]);
+                                    }
+                                    break;
+                
+                                // Best fit strategy
+                                case 2:
+                                    printf("\nBest Fit\n"); 
+                                    // Sorting blocks to find the best fit
+                                    for(i = 0; i < nb; i++) {
+                                        for(j = i + 1; j < nb; j++) {
+                                            if(c[i] > c[j]) {
+                                                int temp = c[i]; 
+                                                c[i] = c[j]; 
+                                                c[j] = temp;
+                                            }
+                                        }
+                                    }
+                                    printf("\nAfter sorting block sizes:");
+                                    for(i = 0; i < nb; i++)
+                                        printf("\nBlock %d:%d", i, c[i]); 
+                
+                                    // Allocating processes
+                                    for(i = 0; i < np; i++) {
+                                        for(j = 0; j < nb; j++) {
+                                            if(p[i] <= c[j]) {
+                                                alloc[j] = p[i]; 
+                                                printf("\n\nAlloc[%d]", alloc[j]);
+                                                printf("\n\nProcess %d of size %d is allocated in block %d of size %d", i, p[i], j, c[j]); 
+                                                flag[i] = 0; c[j] = 0; // Block allocated, set to 0
+                                                break;
+                                            } else {
+                                                flag[i] = 1;
+                                            }
+                                        }
+                                    }
+                                    for(i = 0; i < np; i++) {
+                                        if(flag[i] != 0)
+                                            printf("\n\nProcess %d of size %d is not allocated", i, p[i]);
+                                    }
+                                    break;
+                
+                                // Worst fit strategy
+                                case 3:
+                                    printf("\nWorst Fit\n"); 
+                                    // Sorting blocks to find the worst fit
+                                    for(i = 0; i < nb; i++) {
+                                        for(j = i + 1; j < nb; j++) {
+                                            if(d[i] < d[j]) {
+                                                int temp = d[i]; 
+                                                d[i] = d[j]; 
+                                                d[j] = temp;
+                                            }
+                                        }
+                                    }
+                                    printf("\nAfter sorting block sizes:");
+                                    for(i = 0; i < nb; i++)
+                                        printf("\nBlock %d:%d", i, d[i]);
+                                    
+                                    // Allocating processes
+                                    for(i = 0; i < np; i++) {
+                                        for(j = 0; j < nb; j++) {
+                                            if(p[i] <= d[j]) {
+                                                alloc[j] = p[i]; 
+                                                printf("\n\nAlloc[%d]", alloc[j]);
+                                                printf("\n\nProcess %d of size %d is allocated in block %d of size %d", i, p[i], j, d[j]);
+                                                flag[i] = 0; d[j] = 0; // Block allocated, set to 0
+                                                break;
+                                            } else {
+                                                flag[i] = 1;
+                                            }
+                                        }
+                                    }
+                                    for(i = 0; i < np; i++) {
+                                        if(flag[i] != 0)
+                                            printf("\n\nProcess %d of size %d is not allocated", i, p[i]);
+                                    }
+                                    break;
+                
+                                default:
+                                    printf("Invalid Choice…!\n");
+                                    break;
+                            }
+                        } while(ch <= 3);
+                    }
+                }
+                
+                /*
+                Sample Output:
+                
+                Enter the number of processes: 3
+                Enter the number of blocks: 3
+                Enter the size of each process:
+                Process 0: 100
+                Process 1: 200
+                Process 2: 150
+                
+                Enter the block sizes:
+                Block 0: 300
+                Block 1: 500
+                Block 2: 250
+                
+                1. First fit 2. Best fit 3. Worst fit
+                Enter your choice: 1
+                
+                First Fit
+                
+                Alloc[100]
+                
+                Process 0 of size 100 is allocated in block:0 of size:300
+                Alloc[200]
+                
+                Process 1 of size 200 is allocated in block:1 of size:500
+                Alloc[150]
+                
+                Process 2 of size 150 is allocated in block:2 of size:250
+                
+                */
+            </pre>
+        </div>
+        <div class="heading">Deadlock avoidance</div>
+        <div class="code-box">
+            <button class="copy-button" onclick="copyCode()">Copy Code</button>
+            <pre>
+            #include < stdio.h > 
+
+                void main() {
+                    int pno, rno, i, j, prc, count, t, total; 
+                    int flag[10], tres[10], max[10][10], allocated[10][10], avail[10], work[10], need[10][10];
+                    
+                    count = 0;
+                    printf("\nEnter number of processes: ");
+                    scanf("%d", &pno);  // Sample input: 3
+                    printf("\nEnter number of resources: ");
+                    scanf("%d", &rno);  // Sample input: 3
+                    
+                    for(i = 1; i <= pno; i++) { 
+                        flag[i] = 0;
+                    }
+                
+                    printf("\nEnter total numbers of each resource: "); 
+                    for(i = 1; i <= rno; i++) 
+                        scanf("%d", &tres[i]);  // Sample input: 10 5 7
+                
+                    printf("\nEnter Max resources for each process: "); 
+                    for(i = 1; i <= pno; i++) {
+                        printf("\nFor process %d: ", i); 
+                        for(j = 1; j <= rno; j++) 
+                            scanf("%d", &max[i][j]);  // Sample input: For process 1: 7 3 2, For process 2: 3 2 2, For process 3: 9 0 2
+                    }
+                
+                    printf("\nEnter allocated resources for each process: "); 
+                    for(i = 1; i <= pno; i++) {
+                        printf("\nFor process %d: ", i); 
+                        for(j = 1; j <= rno; j++) 
+                            scanf("%d", &allocated[i][j]);  // Sample input: For process 1: 3 2 2, For process 2: 2 1 1, For process 3: 3 3 2
+                    }
+                
+                    // Available resources calculation
+                    printf("\nAvailable resources:\n"); 
+                    for(j = 1; j <= rno; j++) {
+                        avail[j] = 0; 
+                        total = 0;
+                        for(i = 1; i <= pno; i++) {
+                            total += allocated[i][j];
+                        }
+                        avail[j] = tres[j] - total; 
+                        work[j] = avail[j];
+                        printf("%d \t", work[j]);
+                    } 
+                
+                    do {
+                        for(i = 1; i <= pno; i++) { 
+                            for(j = 1; j <= rno; j++) {
+                                need[i][j] = max[i][j] - allocated[i][j];
+                            }
+                        }
+                        printf("\nAllocated matrix Max need\n"); 
+                        for(i = 1; i <= pno; i++) {
+                            printf("\n"); 
+                            for(j = 1; j <= rno; j++) {
+                                printf("%4d", allocated[i][j]);
+                            }
+                            printf("|");
+                            for(j = 1; j <= rno; j++) { 
+                                printf("%4d", max[i][j]);
+                            } 
+                            printf("|");
+                            for(j = 1; j <= rno; j++) {
+                                printf("%4d", need[i][j]);
+                            }
+                        }
+                        for(i = 1; i <= pno; i++) { 
+                            if(flag[i] == 0) {
+                                prc = i;
+                                for(j = 1; j <= rno; j++) { 
+                                    if(work[j] < need[i][j]) { 
+                                        prc = 0;
+                                        break;
+                                    }
+                                }
+                            }
+                            if(prc != 0) 
+                                break;
+                        }
+                        if(prc != 0) {
+                            printf("\nProcess %d completed", i); 
+                            count++;
+                            printf("\nAvailable matrix: "); 
+                            for(j = 1; j <= rno; j++) { 
+                                work[j] += allocated[prc][j]; 
+                                allocated[prc][j] = 0; 
+                                max[prc][j] = 0;
+                                flag[prc] = 1;
+                                printf("%d ", work[j]);
+                            }
+                        }
+                    } while(count != pno && prc != 0); 
+                
+                    if(count == pno)
+                        printf("\nThe system is in a safe state!!"); 
+                    else
+                        printf("\nThe system is in an unsafe state!!");
+                
+                }
+                
+                /*
+                Sample Input:
+                Enter number of processes: 3
+                Enter number of resources: 3
+                Enter total numbers of each resource: 10 5 7
+                Enter Max resources for each process: 
+                For process 1: 7 3 2
+                For process 2: 3 2 2
+                For process 3: 9 0 2
+                Enter allocated resources for each process: 
+                For process 1: 3 2 2
+                For process 2: 2 1 1
+                For process 3: 3 3 2
+                
+                Sample Output:
+                Available resources:
+                4   0   3   
+                Allocated matrix Max need
+                  3  2  2 |   7  3  2 |   4  1  0
+                  2  1  1 |   3  2  2 |   1  1  1
+                  3  3  2 |   9  0  2 |   6  0  0
+                
+                Process 1 completed
+                Available matrix:  7  2  4
+                Process 2 completed
+                Available matrix:  9  3  5
+                Process 3 completed
+                Available matrix:  9  6  7
+                The system is in a safe state!!
+                */
+            </pre>
+        </div>
+        <div class="heading">Deadlock detection</div>
+        <div class="code-box">
+            <button class="copy-button" onclick="copyCode()">Copy Code</button>
+            <pre>
+            #include < stdio.h >
+                #include<conio.h>
+                
+                int max[100][100];
+                int alloc[100][100];
+                int need[100][100];
+                int avail[100];
+                int n, r;
+                
+                void input();
+                void show();
+                void cal();
+                
+                int main() {
+                    printf("********** Deadlock Detection Algorithm ************\n");
+                    input();
+                    show();
+                    cal();
+                    getch();
+                    return 0;
+                }
+                
+                void input() {
+                    int i, j;
+                    printf("Enter the number of processes: ");
+                    scanf("%d", &n);
+                    printf("Enter the number of resource instances: ");
+                    scanf("%d", &r);
+                
+                    printf("Enter the Max Matrix:\n");
+                    for (i = 0; i < n; i++) {
+                        for (j = 0; j < r; j++) {
+                            scanf("%d", &max[i][j]);
+                        }
+                    }
+                
+                    printf("Enter the Allocation Matrix:\n");
+                    for (i = 0; i < n; i++) {
+                        for (j = 0; j < r; j++) {
+                            scanf("%d", &alloc[i][j]);
+                        }
+                    }
+                
+                    printf("Enter the Available Resources:\n");
+                    for (j = 0; j < r; j++) {
+                        scanf("%d", &avail[j]);
+                    }
+                }
+                
+                void show() {
+                    int i, j;
+                    printf("\nProcess\tAllocation\tMax\tAvailable\n");
+                
+                    for (i = 0; i < n; i++) {
+                        printf("P%d\t ", i + 1);
+                        for (j = 0; j < r; j++) {
+                            printf("%d ", alloc[i][j]);
+                        }
+                
+                        printf("\t");
+                        for (j = 0; j < r; j++) {
+                            printf("%d ", max[i][j]);
+                        }
+                
+                        if (i == 0) {
+                            printf("\t");
+                            for (j = 0; j < r; j++) {
+                                printf("%d ", avail[j]);
+                            }
+                        }
+                        printf("\n");
+                    }
+                }
+                
+                void cal() {
+                    int finish[100], temp, flag = 1, k, c1 = 0;
+                    int dead[100], safe[100];
+                    int i, j;
+                
+                    // Initialize finish array
+                    for (i = 0; i < n; i++) {
+                        finish[i] = 0;
+                    }
+                
+                    // Calculate the need matrix
+                    for (i = 0; i < n; i++) {
+                        for (j = 0; j < r; j++) {
+                            need[i][j] = max[i][j] - alloc[i][j];
+                        }
+                    }
+                
+                    // Check for safe sequence
+                    while (flag) {
+                        flag = 0;
+                        for (i = 0; i < n; i++) {
+                            int c = 0;
+                            for (j = 0; j < r; j++) {
+                                if ((finish[i] == 0) && (need[i][j] <= avail[j])) {
+                                    c++;
+                                }
+                            }
+                
+                            if (c == r) {
+                                for (k = 0; k < r; k++) {
+                                    avail[k] += alloc[i][k];
+                                }
+                                finish[i] = 1;
+                                flag = 1;
+                                safe[c1++] = i;
+                            }
+                        }
+                    }
+                
+                    // Check for deadlock
+                    int deadlock_flag = 0;
+                    int dead_count = 0;
+                    for (i = 0; i < n; i++) {
+                        if (finish[i] == 0) {
+                            dead[dead_count++] = i;
+                            deadlock_flag = 1;
+                        }
+                    }
+                
+                    if (deadlock_flag) {
+                        printf("\nSystem is in Deadlock and the Deadlocked processes are:\n");
+                        for (i = 0; i < dead_count; i++) {
+                            printf("P%d\t", dead[i]);
+                        }
+                        printf("\n");
+                    } else {
+                        printf("\nSystem is in a Safe State. Safe sequence is:\n");
+                        for (i = 0; i < c1; i++) {
+                            printf("P%d\t", safe[i]);
+                        }
+                        printf("\n");
+                    }
+                }
+                /* Example Input:
+                Enter the number of processes: 5
+                Enter the number of resource instances: 3
+                Enter the Max Matrix:
+                7 5 3
+                3 2 2
+                9 0 2
+                2 2 2
+                4 3 3
+                Enter the Allocation Matrix:
+                0 1 0
+                2 0 0
+                3 0 2
+                2 1 1
+                0 0 2
+                Enter the Available Resources:
+                3 3 2
+                */
+            </pre>
+        </div>
+        <div class="heading">FIFO</div>
+        <div class="code-box">
+            <button class="copy-button" onclick="copyCode()">Copy Code</button>
+            <pre>
+            #include < stdio.h >
+                #include<conio.h>
+                
+                int main() {
+                    int i, j, k, f, pf = 0, count = 0, rs[25], m[10], n;
+                
+                    printf("\n Enter the length of reference string -- ");
+                    scanf("%d", &n);
+                
+                    printf("\n Enter the reference string -- ");
+                    for (i = 0; i < n; i++)
+                        scanf("%d", &rs[i]);
+                
+                    printf("\n Enter no. of frames -- ");
+                    scanf("%d", &f);
+                
+                    for (i = 0; i < f; i++)
+                        m[i] = -1;
+                
+                    printf("\n The Page Replacement Process is -- \n");
+                
+                    for (i = 0; i < n; i++) {
+                        for (k = 0; k < f; k++) {
+                            if (m[k] == rs[i])
+                                break;
+                        }
+                
+                        if (k == f) {
+                            m[count++] = rs[i];
+                            pf++;
+                        }
+                
+                        for (j = 0; j < f; j++)
+                            printf("\t%d", m[j]);
+                
+                        if (k == f)
+                            printf("\tPF No. %d", pf);
+                
+                        printf("\n");
+                
+                        if (count == f)
+                            count = 0;
+                    }
+                
+                    printf("\n The number of Page Faults using FIFO are %d", pf);
+                    getch();
+                
+                    return 0;
+                }
+                
+                /*
+                Sample Input:
+                Length of reference string: 12
+                Reference string: 7 0 1 2 0 3 0 4 2 3 0 3
+                Number of frames: 3
+                */
+            </pre>
+        </div>
+        <div class="heading">LRU</div>
+        <div class="code-box">
+            <button class="copy-button" onclick="copyCode()">Copy Code</button>
+            <pre>
+            #include < stdio.h >
+                #include<conio.h>
+                
+                int main() {
+                    int i, j, k, min, rs[25], m[10], count[10], flag[25], n, f, pf = 0, next = 1;
+                
+                    printf("Enter the length of reference string -- ");
+                    scanf("%d", &n);
+                
+                    printf("Enter the reference string -- ");
+                    for (i = 0; i < n; i++) {
+                        scanf("%d", &rs[i]);
+                        flag[i] = 0;
+                    }
+                
+                    printf("Enter the number of frames -- ");
+                    scanf("%d", &f);
+                
+                    for (i = 0; i < f; i++) {
+                        count[i] = 0;
+                        m[i] = -1;
+                    }
+                
+                    printf("\nThe Page Replacement process is -- \n");
+                
+                    for (i = 0; i < n; i++) {
+                        for (j = 0; j < f; j++) {
+                            if (m[j] == rs[i]) {
+                                flag[i] = 1;
+                                count[j] = next;
+                                next++;
+                                break;
+                            }
+                        }
+                
+                        if (flag[i] == 0) {
+                            if (i < f) {
+                                m[i] = rs[i];
+                                count[i] = next;
+                                next++;
+                            } else {
+                                min = 0;
+                                for (j = 1; j < f; j++) {
+                                    if (count[min] > count[j])
+                                        min = j;
+                                }
+                                m[min] = rs[i];
+                                count[min] = next;
+                                next++;
+                            }
+                            pf++;
+                        }
+                
+                        for (j = 0; j < f; j++) {
+                            if (m[j] != -1)
+                                printf("%d\t", m[j]);
+                            else
+                                printf("-\t");
+                        }
+                
+                        if (flag[i] == 0)
+                            printf("PF No. -- %d", pf);
+                        printf("\n");
+                    }
+                
+                    printf("\nThe number of page faults using LRU are %d\n", pf);
+                    getch();
+                
+                    return 0;
+                }
+                
+                /*
+                Sample Input:
+                Length of reference string: 12
+                Reference string: 7 0 1 2 0 3 0 4 2 3 0 3
+                Number of frames: 3
+                */
+            </pre>
+        </div>
+        <div class="heading">LFU</div>
+        <div class="code-box">
+            <button class="copy-button" onclick="copyCode()">Copy Code</button>
+            <pre>
+            #include < stdio.h >
+
+                int main() {
+                    int rs[50], i, j, k, m, f, cntr[20], a[20], min, pf = 0;
+                
+                
+                    printf("\nEnter number of page references -- ");
+                    scanf("%d", &m);
+                
+                    printf("\nEnter the reference string -- ");
+                    for (i = 0; i < m; i++) {
+                        scanf("%d", &rs[i]);
+                    }
+                
+                    printf("\nEnter the available no. of frames -- ");
+                    scanf("%d", &f);
+                
+                    for (i = 0; i < f; i++) {
+                        cntr[i] = 0;
+                        a[i] = -1;
+                    }
+                
+                    printf("\nThe Page Replacement Process is -- \n");
+                    for (i = 0; i < m; i++) {
+                        for (j = 0; j < f; j++) {
+                            if (rs[i] == a[j]) {
+                                cntr[j]++; // Increment counter for recently used page
+                                break;
+                            }
+                        }
+                
+                        if (j == f) { // Page fault occurred
+                            min = 0;
+                            for (k = 1; k < f; k++) {
+                                if (cntr[k] < cntr[min]) {
+                                    min = k;
+                                }
+                            }
+                            a[min] = rs[i];
+                            cntr[min] = 1; // Reset counter for the replaced page
+                            pf++;
+                        }
+                
+                        for (j = 0; j < f; j++) {
+                            if (a[j] != -1) {
+                                printf("\t%d", a[j]);
+                            } else {
+                                printf("\t-");
+                            }
+                        }
+                        if (j == f) {
+                            printf("\tPF No. %d", pf);
+                        }
+                        printf("\n");
+                    }
+                
+                    printf("\n\nTotal number of page faults -- %d\n", pf);
+                    return 0;
+                }
+                
+                    // Sample input:
+                    // Number of page references: 12
+                    // Reference string: 7 0 1 2 0 3 0 4 2 3 0 3
+                    // Number of frames: 3
+                </pre>
+        </div>
+        <div class="heading">Seq File allocation</div>
+        <div class="code-box">
+            <button class="copy-button" onclick="copyCode()">Copy Code</button>
+            <pre>
+            #include < stdio.h > 
+
+                int main() {
+                    int f[50], i, st, j, len, c;
+                
+                    // Initialize all blocks to 0 (unallocated)
+                    for (i = 0; i < 50; i++) {
+                        f[i] = 0;
+                    }
+                
+                    while (1) {
+                        printf("\nEnter the starting block & length of file: ");
+                        scanf("%d%d", &st, &len);
+                
+                        // Check if the blocks are available
+                        for (j = st; j < (st + len); j++) {
+                            if (f[j] == 0) {
+                                f[j] = 1; // Allocate the block
+                                printf("\n%d -> %d", j, f[j]);
+                            } else {
+                                printf("\nBlock %d is already allocated.", j);
+                                break;
+                            }
+                        }
+                
+                        // If all blocks are successfully allocated
+                        if (j == (st + len)) {
+                            printf("\nThe file is allocated to disk.");
+                        }
+                
+                        // Ask the user if they want to enter more files
+                        printf("\nDo you want to enter more files? (1 for Yes / 0 for No): ");
+                        scanf("%d", &c);
+                
+                        if (c != 1) {
+                            break; // Exit the loop if the user enters 0
+                        }
+                    }
+                
+                    return 0;
+                }
+                
+                /*
+                Sample Input:
+                Enter the starting block & length of file: 5 3
+                Output:
+                5 -> 1
+                6 -> 1
+                7 -> 1
+                The file is allocated to disk.
+                Do you want to enter more files? (1 for Yes / 0 for No): 1
+                
+                Enter the starting block & length of file: 6 2
+                Output:
+                Block 6 is already allocated.
+                Do you want to enter more files? (1 for Yes / 0 for No): 0
+                */
+            </pre>
+        </div>
+        <div class="heading">Linked file allocation</div>
+        <div class="code-box">
+            <button class="copy-button" onclick="copyCode()">Copy Code</button>
+            <pre>
+            #include < stdio.h >
+                #include<stdlib.h> // For exit()
+                
+                int main() {
+                    int f[50], p, i, j, k, a, st, len, n, c;
+                
+                    // Initialize the file blocks to 0 (not allocated)
+                    for (i = 0; i < 50; i++)
+                        f[i] = 0;
+                
+                    // Input the number of blocks already allocated
+                    printf("Enter how many blocks that are already allocated: ");
+                    scanf("%d", &p);
+                
+                    printf("\nEnter the block numbers that are already allocated: ");
+                    for (i = 0; i < p; i++) {
+                        scanf("%d", &a);
+                        if (a >= 50 || a < 0) {
+                            printf("\nInvalid block number: %d. Blocks should be between 0 and 49.\n", a);
+                            continue;
+                        }
+                        f[a] = 1;
+                    }
+                
+                X:
+                    printf("\nEnter the starting index block and length: ");
+                    scanf("%d%d", &st, &len);
+                
+                    if (st < 0 || st >= 50) {
+                        printf("\nInvalid starting block: %d. Blocks should be between 0 and 49.\n", st);
+                        goto X;
+                    }
+                
+                    k = len;
+                    for (j = st; j < (st + len); j++) {
+                        if (j >= 50) {
+                            printf("\nBlock %d is out of range. Blocks should be between 0 and 49.\n", j);
+                            break;
+                        }
+                        if (f[j] == 0) {
+                            f[j] = 1;
+                            printf("\n%d -> Allocated", j);
+                        } else {
+                            printf("\n%d -> Block already allocated", j);
+                            k++;
+                        }
+                    }
+                
+                    printf("\nIf you want to enter one more file? (yes-1 / no-0): ");
+                    scanf("%d", &c);
+                    if (c == 1)
+                        goto X;
+                    else
+                        exit(0);
+                
+                    return 0;
+                }
+                
+                /*
+                Sample Input:
+                
+                Enter how many blocks that are already allocated: 3
+                Enter the block numbers that are already allocated: 3 5 7
+                
+                Enter the starting index block and length: 4 3
+                
+                Output:
+                4 -> Allocated
+                5 -> Block already allocated
+                6 -> Allocated
+                
+                If you want to enter one more file? (yes-1 / no-0): 0
+                */
+            </pre>
+        </div>
+        <div class="heading">Index file allocation</div>
+        <div class="code-box">
+            <button class="copy-button" onclick="copyCode()">Copy Code</button>
+            <pre>
+            #include < stdio.h >
+                #include<stdlib.h> // For exit()
+                
+                int main() {
+                    int f[50], p, i, j, k, a, st, len, n, c;
+                
+                    // Initialize the file blocks to 0 (not allocated)
+                    for (i = 0; i < 50; i++)
+                        f[i] = 0;
+                
+                    // Input the number of blocks already allocated
+                    printf("Enter how many blocks that are already allocated: ");
+                    scanf("%d", &p);
+                
+                    printf("\nEnter the block numbers that are already allocated: ");
+                    for (i = 0; i < p; i++) {
+                        scanf("%d", &a);
+                        if (a >= 50 || a < 0) {
+                            printf("\nInvalid block number: %d. Blocks should be between 0 and 49.\n", a);
+                            continue;
+                        }
+                        f[a] = 1;
+                    }
+                
+                X:
+                    printf("\nEnter the starting index block and length: ");
+                    scanf("%d%d", &st, &len);
+                
+                    if (st < 0 || st >= 50) {
+                        printf("\nInvalid starting block: %d. Blocks should be between 0 and 49.\n", st);
+                        goto X;
+                    }
+                
+                    k = len;
+                    for (j = st; j < (st + len); j++) {
+                        if (j >= 50) {
+                            printf("\nBlock %d is out of range. Blocks should be between 0 and 49.\n", j);
+                            break;
+                        }
+                        if (f[j] == 0) {
+                            f[j] = 1;
+                            printf("\n%d -> Allocated", j);
+                        } else {
+                            printf("\n%d -> Block already allocated", j);
+                            k++;
+                        }
+                    }
+                
+                    printf("\nIf you want to enter one more file? (yes-1 / no-0): ");
+                    scanf("%d", &c);
+                    if (c == 1)
+                        goto X;
+                    else
+                        exit(0);
+                
+                    return 0;
+                }
+                
+                /*
+                Sample Input:
+                
+                Enter how many blocks that are already allocated: 3
+                Enter the block numbers that are already allocated: 3 5 7
+                
+                Enter the starting index block and length: 4 3
+                
+                Output:
+                4 -> Allocated
+                5 -> Block already allocated
+                6 -> Allocated
+                
+                If you want to enter one more file? (yes-1 / no-0): 0
+                */
+            </pre>
+        </div>
+
+    </div>
+    <script>
+        function copyCode() {
+            const codeBox = document.querySelector('code-box');
+            
+            if (!codeBox) {
+                console.error('Code box not found!');
+                return;
+            }
+    
+            const code = codeBox.textContent; // Use textContent for better performance
+    
+            // Check if the Clipboard API is supported
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(code).then(() => {
+                    alert('Code copied to clipboard!');
+                }).catch(err => {
+                    console.error('Failed to copy: ', err);
+                    alert('Failed to copy code. Please try again.');
+                });
+            } else {
+                console.error('Clipboard API not supported');
+                alert('Clipboard API not supported in your browser.');
+            }
+        }
+    </script>
+</body>
+</html>
